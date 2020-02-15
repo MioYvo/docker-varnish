@@ -24,6 +24,12 @@ start_varnishd () {
 
         VARNISHD_LOG="exec $(command -v varnishlog) \
                     ${VARNISHLOG_OPTS}"
+    elif [ "${VARNISHNCSA}" == "true" ]; then
+        VARNISHD="$(command -v varnishd)  \
+                    ${VARNISHD_FULL_OPTS}"
+
+        VARNISHD_NCSA="exec $(command -v varnishncsa) \
+                    -q ${VARNISHNCSA_QUERY} -F ${VARNISHNCSA_FORMAT}"
     else
         VARNISHD="exec $(command -v varnishd)  \
                     -F ${VARNISHD_FULL_OPTS}"
@@ -41,6 +47,11 @@ start_varnishd () {
 
     if [ "${VARNISHLOG}" == "true" ]; then
         eval "${VARNISHD_LOG}"
+    fi
+
+    if [ "${VARNISHNCSA}" == "true" ]; then
+        echo $VARNISHD_NCSA
+        eval "${VARNISHD_NCSA}"
     fi
 }
 

@@ -12,7 +12,10 @@ ENV     VARNISH_PORT="8080" \
         VARNISHD_ADDITIONAL_OPTS="" \
         VARNISHLOG="false" \
         VARNISHLOG_OPTS="" \
-        VARNISH_VERSION="${VARNISH_VERSION}"
+        VARNISH_VERSION="${VARNISH_VERSION}" \
+        VARNISHNCSA="false" \
+        VARNISHNCSA_FORMAT="'%{Host}i %h %l %u %t \"%r\" %s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{Varnish:hitmiss}x\"'" \
+        VARNISHNCSA_QUERY="\"ReqURL ne '<url_which_should_be_not_logged>'\""
 
 RUN     set -x && \
         apk add --no-cache --upgrade varnish=${VARNISH_VERSION} && \

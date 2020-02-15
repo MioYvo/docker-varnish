@@ -68,6 +68,18 @@ If you want [varnishlog](https://varnish-cache.org/docs/6.0/reference/varnishlog
 It is also possible to pass additional [options](https://varnish-cache.org/docs/6.0/reference/varnishlog.html#options) to `varnishlog` by using env `VARNISHLOG_OPTS`:  
 `VARNISHLOG_OPTS="-g session"`
 
+#### VarnishNCSA
+
+> `varnishncsa=true` `varnishlog=true` equal to `varnishncsa=true`
+
+If you want [varnishncsa](https://varnish-cache.org/docs/6.3/reference/varnishncsa.html) to `stdout` you can use the env `VARNISHNCSA`:  
+`VARNISHNCSA="true"` (default `false`)
+
+[Format](https://varnish-cache.org/docs/6.3/reference/varnishncsa.html#format): `VARNISHNCSA_FORMAT=""`(default `"'%{Host}i %h %l %u %t \"%r\" %s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{Varnish:hitmiss}x\"'"`)
+
+[VSL query](https://varnish-cache.org/docs/6.3/reference/vsl.html#vsl-7): `VARNISHNCSA_QUERY=""`(default `"\"ReqURL ne '<url_which_should_be_not_logged>'\""`)
+
+
 ### Get things running
 
 #### With docker run
@@ -83,6 +95,10 @@ It is also possible to pass additional [options](https://varnish-cache.org/docs/
 ##### Varnishlog enabled
 
 `$ docker run -d -v /host/path/varnish.vcl:/etc/varnish/default.vcl -e VARNISHLOG=true hermsi/alpine-varnish:stable`
+
+##### Varnishncsa enabled
+
+`$ docker run -d -v /host/path/varnish.vcl:/etc/varnish/default.vcl -e VARNISHNCSA=true hermsi/alpine-varnish:stable`
 
 ### With docker-compose
 
